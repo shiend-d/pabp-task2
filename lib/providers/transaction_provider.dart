@@ -44,7 +44,10 @@ class TransactionProvider extends ChangeNotifier {
       notifyListeners();
       return true;
     } catch (e) {
-      _errorMessage = e.toString().replaceAll('Exception: ', '');
+      final err = e.toString();
+      _errorMessage = (err.contains('SocketException') || err.contains('host lookup')) 
+          ? 'Tidak ada koneksi internet. Pembayaran ditangguhkan.' 
+          : err.replaceAll('Exception: ', '');
       _state = TransactionState.error;
       notifyListeners();
       return false;
@@ -63,7 +66,10 @@ class TransactionProvider extends ChangeNotifier {
       }
       _state = TransactionState.loaded;
     } catch (e) {
-      _errorMessage = e.toString().replaceAll('Exception: ', '');
+      final err = e.toString();
+      _errorMessage = (err.contains('SocketException') || err.contains('host lookup')) 
+          ? 'Gagal memuat riwayat. Tidak ada koneksi internet.' 
+          : err.replaceAll('Exception: ', '');
       _state = TransactionState.error;
     }
     notifyListeners();

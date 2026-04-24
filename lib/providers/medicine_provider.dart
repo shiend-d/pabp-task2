@@ -26,7 +26,12 @@ class MedicineProvider extends ChangeNotifier {
       _applyFilter();
       _state = ViewState.loaded;
     } catch (e) {
-      _errorMessage = e.toString().replaceAll('Exception: ', '');
+      final err = e.toString();
+      if (err.contains('SocketException') || err.contains('host lookup')) {
+        _errorMessage = 'Tidak ada koneksi internet. Periksa Wi-Fi atau data seluler Anda.';
+      } else {
+        _errorMessage = err.replaceAll('Exception: ', '');
+      }
       _state = ViewState.error;
     }
     notifyListeners();
@@ -59,7 +64,10 @@ class MedicineProvider extends ChangeNotifier {
       await fetchMedicines(token);
       return true;
     } catch (e) {
-      _errorMessage = e.toString().replaceAll('Exception: ', '');
+      final err = e.toString();
+      _errorMessage = (err.contains('SocketException') || err.contains('host lookup')) 
+          ? 'Tidak ada koneksi internet.' 
+          : err.replaceAll('Exception: ', '');
       notifyListeners();
       return false;
     }
@@ -73,7 +81,10 @@ class MedicineProvider extends ChangeNotifier {
       await fetchMedicines(token);
       return true;
     } catch (e) {
-      _errorMessage = e.toString().replaceAll('Exception: ', '');
+      final err = e.toString();
+      _errorMessage = (err.contains('SocketException') || err.contains('host lookup')) 
+          ? 'Tidak ada koneksi internet.' 
+          : err.replaceAll('Exception: ', '');
       notifyListeners();
       return false;
     }
@@ -86,7 +97,10 @@ class MedicineProvider extends ChangeNotifier {
       await fetchMedicines(token);
       return true;
     } catch (e) {
-      _errorMessage = e.toString().replaceAll('Exception: ', '');
+      final err = e.toString();
+      _errorMessage = (err.contains('SocketException') || err.contains('host lookup')) 
+          ? 'Tidak ada koneksi internet.' 
+          : err.replaceAll('Exception: ', '');
       notifyListeners();
       return false;
     }
