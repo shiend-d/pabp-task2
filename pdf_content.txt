@@ -1,0 +1,160 @@
+﻿===== Week 9 - Mobile Platform.pdf =====
+Mobile Platform
+KP70064006 - Pengembangan Aplikasi Berbasis Platform
+Recap
+ΓùÅ Karakteristik platform
+ΓùÅ Web development
+ΓùÅ Arsitektur backend: monolithic, service-oriented, microservice
+ΓùÅ REST API
+ΓùÅ JWT
+ΓùÅ UTS: masing-masing mahasiswa punya backend REST API
+Mengapa mobile platform relevan?
+Lanskap platform mobile
+Android iOS
+Market share (2025-2026)* 68.24% 31.48%
+Bahasa native Kotlin / Java Swift / Objective-C
+Ekosistem Google Play App Store
+Distribusi Lebih terbuka Lebih terkontrol
+*Sumber: statcounter
+Tiga pendekatan mobile development
+1. Native: Kode terpisah untuk masing-masing platform menggunakan bahasa
+dan SDK resminya.
+2. Cross-platform: Satu codebase, dikompilasi atau dijalankan di dua platform.
+Contoh: React Native, Flutter.
+3. WebView: Aplikasi web yang dibungkus dalam shell native. Contoh: Ionic,
+Cordova.
+Perbandingan: native vs cross-platform
+Native Cross-platform
+Performa Sangat Cepat Mendekati native
+Akses API OS Penuh Terbatas
+UX/UI Optimal Menyesuaikan
+Biaya Tinggi Sedang
+Tidak ada pilihan terbaik secara universal.
+Konteks proyek menentukan.
+API yang umumnya tidak tersedia di cross-platform
+1. Background processing (kontrol terbatas)
+2. NFC (card emulation)
+3. Low-latency audio: Android punya API AAudio/Oboe, iOS punya Core Audio.
+Keduanya sulit diakses dari cross-platform tanpa kode native
+4. Kamera tingkat lanjut
+5. Akses sistem file tingkat OS
+6. Home screen widget
+7. Sensor spesifik seperti barometer dengan presisi tinggi, sensor tekanan,
+LiDAR, sensor biometrik selain fingerprint/face ID standar
+Mobile Γëá Browser
+Konteks Web Konteks Mobile
+Klik mouse Gesture: tap, swipe, pinch, long press
+Tombol back browser Hardware back button (Android) / swipe
+(iOS)
+URL sebagai navigasi Stack navigasi dalam memori
+Layar selalu sama lebar Safe area: notch, status bar, home indicator
+Koneksi relatif stabil Offline is normal ΓÇö harus diantisipasi
+Membangun mobile bukan hanya soal tampilan, tapi model
+interaksi yang berbeda.
+Flutter
+Flutter
+Framework open-source dari Google (2018) menggunakan bahasa Dart. Dapat digunakan untuk
+membuat aplikasi multiplatform dengan satu codebase.
+Cara kerja:
+ΓùÅ Dart dikompilasi ke kode native ARM
+ΓùÅ Rendering engine (Skia/Impeller) menggambar setiap pixel langsung ke canvas
+ΓùÅ Tidak bergantung pada widget native OS
+ΓùÅ Berbasis Widget. Widget adalah building blocks dari seluruh antarmuka pengguna aplikasi
+Keunggulan:
+ΓùÅ UI konsisten di semua platform (Android, iOS, web, desktop)
+ΓùÅ Performa sangat dekat ke native
+ΓùÅ Widget library lengkap built-in (Material Design + Cupertino)
+Setup environment Flutter
+Instalasi: https://docs.flutter.dev/install/manual
+Butuh Android Studio atau Xcode untuk emulator:
+https://developer.android.com/studio
+Komponen dasar UI mobile (Flutter)
+ΓùÅ Scaffold ΓåÆ kerangka halaman (app bar, body, bottom nav)
+ΓùÅ Column / Row ΓåÆ layout vertikal / horizontal
+ΓùÅ ListView.builder ΓåÆ daftar panjang yang dirender secara lazy
+ΓùÅ GestureDetector ΓåÆ menangkap berbagai gesture
+ΓùÅ ElevatedButton ΓåÆ tombol standar Material Design
+ΓùÅ TextField ΓåÆ field input teks
+Jenis widget Flutter
+StatelessWidget ΓÇö tidak punya lifecycle
+Hanya punya satu method: build(). Dipanggil
+sekali, selesai. Tidak bisa berubah setelah
+ditampilkan. Tidak ada yang perlu di-manage.
+StatefulWidget ΓÇö punya lifecycle
+StatefulWidget terdiri dari dua kelas yang
+StatefulWidget adalah konfigurasi yang bersifat
+bekerja berpasangan. StatefulWidget dan State.
+immutable. State adalah yang menyimpan data dan
+punya lifecycle.
+Lifecycle widget Flutter
+initState() ΓåÆ inisialisasi, fetch data pertama kali
+build() ΓåÆ dipanggil setiap ada perubahan state
+dispose() ΓåÆ bersihkan controller, cancel subscription
+Lifecycle widget Flutter
+Flutter sering membuat ulang objek widget dalam jumlah besar. Setiap kali build()
+dipanggil di parent, widget-widget child bisa dibuat ulang sebagai objek baru.
+Kalau widget menyimpan state-nya sendiri, state itu akan hilang setiap kali widget
+dibuat ulang.
+Dengan memisahkan widget (konfigurasi, sering dibuat ulang) dari State (data,
+dipertahankan selama widget hidup), Flutter bisa melakukan rebuild yang cepat
+tanpa kehilangan data yang sedang aktif.
+Terima kasih.
+
+===== tugas 2 mobile platform.pdf =====
+Pengembangan Aplikasi Berbasis Platform
+Tugas 2 Individu
+Topik : Implementasi Teknik Pengembangan pada Platform Web
+Deadline : Sabtu, 25 April 2026 @ 23:59
+Deskripsi Tugas
+Mahasiswa diminta untuk merancang dan mengimplementasikan sebuah aplikasi mobile
+sederhana menggunakan Flutter yang terhubung dengan REST API yang telah dibuat pada
+UTS. Proyek ini bertujuan untuk menguji pemahaman konseptual serta keterampilan praktis
+mahasiswa dalam pengembangan aplikasi mobile berbasis Flutter, integrasi dengan backend
+milik sendiri, autentikasi menggunakan JWT, pengelolaan state secara reaktif, dan navigasi
+antar halaman.
+Tujuan Pembelajaran
+Melalui tugas ini, mahasiswa diharapkan mampu:
+ΓùÅ Memahami dan mengimplementasikan layered architecture pada aplikasi mobile
+(Models, Services, Providers, Screens, Widgets).
+ΓùÅ Mengintegrasikan REST API yang telah dikembangkan sendiri ke dalam aplikasi
+Flutter menggunakan HTTP request dan parsing JSON.
+ΓùÅ Mengimplementasikan alur autentikasi berbasis JWT, mulai dari login, penyimpanan
+token, hingga pengiriman token pada setiap request yang membutuhkan otorisasi.
+ΓùÅ Mengelola state aplikasi secara reaktif.
+ΓùÅ Menerapkan navigasi antar halaman.
+ΓùÅ Menerapkan praktik pengembangan perangkat lunak yang baik (struktur kode,
+modularitas, dan dokumentasi).
+ΓùÅ Mengkomunikasikan proses teknis secara sistematis melalui demonstrasi.
+Ketentuan
+Aplikasi yang dibuat harus memenuhi persyaratan berikut:
+1. Direkomendasikan menggunakan Flutter sebagai framework utama. Platform tujuan
+minimal perangkat mobile dengan sistem operasi Android.
+2. Sumber Data (Wajib)
+a. Menggunakan REST API yang telah dibuat pada UTS sebagai backend
+aplikasi. Perhitungkan implementasi JWT saat berkomunikasi dengan API.
+b. Cukup read data saja.
+c. Jika hasil pekerjaan UTS Anda tidak memungkinkan untuk digunakan,
+silakan buat ulang atau perbaiki backend sesuai dengan ketentuan UTS.
+3. State Management (Wajib)
+a. Gunakan Provider sebagai solusi state management utama.
+b. Mengimplementasikan three-state UI: loading, error, dan data berhasil
+ditampilkan.
+4. Fitur Tambahan (Opsional). Mahasiswa dapat menambahkan fitur untuk
+meningkatkan kualitas aplikasi, seperti:
+a. Operasi CRUD lengkap (tambah, ubah, hapus data melalui API)
+b. UI/UX enhancement dan responsive layout
+c. Fitur pencarian atau filter data
+d. Animasi dan transisi halaman
+5. Version Control (Opsional)
+a. Menggunakan Git untuk version control.
+b. Repository diunggah ke GitHub dengan riwayat commit yang jelas dan
+deskriptif.
+Deliverables
+Dokumen teknis dan video demonstrasi dengan durasi 4-7 menit. Jelaskan apa yang Anda
+buat dan pengaruh fitur yang Anda tambahkan terhadap aplikasi, baik itu performa atau User
+Experience (UX). Kumpulkan di https://forms.gle/1rDPQqZ7CBCz4Zsh6.
+Bobot Nilai
+ΓùÅ Fitur yang wajib terpenuhi : 80
+ΓùÅ Submit link repository di github : 5
+ΓùÅ Fitur tambahan (+ kreativitas) : ~20
+
